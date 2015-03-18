@@ -4,6 +4,9 @@ package fr.ailgor.ailgorrc;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -18,14 +21,138 @@ import ioio.lib.util.android.IOIOActivity;
 public class MainActivity extends IOIOActivity {
 
     private ToggleButton toggleButtonLedSTAT;
+    private Button buttonLeft;
+    private Button buttonRight;
+    private Button buttonUp;
+    private Button buttonDown;
 
+
+    private boolean motorLeft=false;
+    private boolean motorRight=false;
+    private float speed = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         toggleButtonLedSTAT = (ToggleButton)findViewById(R.id.toggleButtonLedSTAT);
 
+        buttonLeft = (Button) findViewById((R.id.buttonLeft));
+        buttonRight = (Button) findViewById((R.id.buttonRight));
+        buttonUp = (Button) findViewById((R.id.buttonUp));
+        buttonDown = (Button) findViewById((R.id.buttonDown));
+
+
         enableUi(false);
+
+
+
+
+        buttonLeft.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if ((event.getAction() == MotionEvent.ACTION_MOVE)||(event.getActionMasked()!=MotionEvent.ACTION_UP))
+                {
+                    motorLeft = false;
+                    motorRight = false;
+                    speed = (float)0.5;
+                }
+                else
+                speed = 0;
+
+
+                return false;
+            }
+        });
+
+        buttonRight.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if ((event.getAction() == MotionEvent.ACTION_MOVE)||(event.getActionMasked()!=MotionEvent.ACTION_UP))
+                {
+                    motorLeft = true;
+                    motorRight = true;
+                    speed = (float)0.5;
+                }
+                else
+                    speed = 0;
+
+
+                return false;
+            }
+        });
+
+        buttonUp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if ((event.getAction() == MotionEvent.ACTION_MOVE)||(event.getActionMasked()!=MotionEvent.ACTION_UP))
+                {
+                    motorLeft = false;
+                    motorRight = true;
+                    speed = 1;
+                }
+                else
+                    speed = 0;
+
+
+                return false;
+            }
+        });
+
+
+        buttonDown.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if ((event.getAction() == MotionEvent.ACTION_MOVE)||(event.getActionMasked()!=MotionEvent.ACTION_UP))
+                {
+                    motorLeft = true;
+                    motorRight = false;
+                    speed = (float)0.5;
+                }
+                else
+                    speed = 0;
+
+
+                return false;
+            }
+        });
+
+
+/*
+        buttonLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                motorLeft = false;
+                motorRight = false;
+
+            }
+        });
+
+        buttonRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                motorLeft = true;
+                motorRight = true;
+            }
+        });
+
+        buttonUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                motorLeft = false;
+                motorRight = true;
+            }
+        });
+
+        buttonDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                motorLeft = true;
+                motorRight = false;
+            }
+        });*/
+
 
     } // End onCreate
 
@@ -98,13 +225,14 @@ public class MainActivity extends IOIOActivity {
 
             PinDO0.write(!toggleButtonLedSTAT.isChecked());
 
-            PinPWM39.setDutyCycle(1);
-            PinDIO41.write(!toggleButtonLedSTAT.isChecked());
-            PinDIO40.write(toggleButtonLedSTAT.isChecked());
 
-            PinPWM38.setDutyCycle(1);
-            PinDIO37.write(!toggleButtonLedSTAT.isChecked());
-            PinDIO36.write(toggleButtonLedSTAT.isChecked());
+                PinPWM39.setDutyCycle(speed);
+                PinDIO41.write(motorLeft);
+                PinDIO40.write(!motorLeft);
+
+                PinPWM38.setDutyCycle(speed);
+                PinDIO37.write(motorRight);
+                PinDIO36.write(!motorRight);
 
 
 
