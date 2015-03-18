@@ -1,6 +1,5 @@
 package fr.ailgor.ailgorrc;
 
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,10 +20,10 @@ import ioio.lib.util.android.IOIOActivity;
 public class MainActivity extends IOIOActivity {
 
     private ToggleButton toggleButtonLedSTAT;
-    private Button buttonLeft;
-    private Button buttonRight;
-    private Button buttonUp;
-    private Button buttonDown;
+    protected Button buttonLeft;
+    protected Button buttonRight;
+    protected Button buttonUp;
+    protected Button buttonDown;
 
 
     private boolean motorLeft=false;
@@ -42,11 +41,7 @@ public class MainActivity extends IOIOActivity {
         buttonUp = (Button) findViewById((R.id.buttonUp));
         buttonDown = (Button) findViewById((R.id.buttonDown));
 
-
         enableUi(false);
-
-
-
 
         buttonLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -116,43 +111,6 @@ public class MainActivity extends IOIOActivity {
                 return false;
             }
         });
-
-
-/*
-        buttonLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                motorLeft = false;
-                motorRight = false;
-
-            }
-        });
-
-        buttonRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                motorLeft = true;
-                motorRight = true;
-            }
-        });
-
-        buttonUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                motorLeft = false;
-                motorRight = true;
-            }
-        });
-
-        buttonDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                motorLeft = true;
-                motorRight = false;
-            }
-        });*/
-
 
     } // End onCreate
 
