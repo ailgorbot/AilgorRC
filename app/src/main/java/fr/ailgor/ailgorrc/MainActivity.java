@@ -7,6 +7,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import ioio.lib.api.DigitalOutput;
+import ioio.lib.api.PwmOutput;
 import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.BaseIOIOLooper;
 import ioio.lib.util.IOIOLooper;
@@ -55,7 +56,7 @@ public class MainActivity extends IOIOActivity {
 // Declare PIN
         private DigitalOutput PinDO0; // LED STAT
 
- /*       // Motor DC : Right
+       // Motor DC : Right
         private DigitalOutput PinDO6; // L293D
         private DigitalOutput PinDO7; // L293D
         private PwmOutput PinPW37; // L293D
@@ -64,7 +65,7 @@ public class MainActivity extends IOIOActivity {
         private DigitalOutput PinDO11; // L293D
         private DigitalOutput PinDO12; // L293D
         private PwmOutput PinPW38; // L293D
-*/
+
         @Override
         protected void setup() throws ConnectionLostException, InterruptedException {
 //            super.setup();
@@ -72,7 +73,7 @@ public class MainActivity extends IOIOActivity {
             // LED STAT
             PinDO0 = ioio_.openDigitalOutput(0, true);
 
- /*           // Motor DC : Right
+           // Motor DC : Right
             PinDO6 = ioio_.openDigitalOutput(0);
             PinDO7 = ioio_.openDigitalOutput(0);
             PinPW38 = ioio_.openPwmOutput(38,100);
@@ -82,7 +83,7 @@ public class MainActivity extends IOIOActivity {
             PinDO11 = ioio_.openDigitalOutput(0);
             PinDO12 = ioio_.openDigitalOutput(0);
             PinPW37 = ioio_.openPwmOutput(37,100);
-*/
+
 
             enableUi(true); // Start IOIO
         } // End setup
@@ -94,11 +95,11 @@ public class MainActivity extends IOIOActivity {
 
          PinDO0.write(!toggleButtonLedSTAT.isChecked());
 
- /*        PinDO6.write(false);
+         PinDO6.write(false);
          PinDO7.write(true);
          PinDO11.write(true);
          PinDO12.write(false);
-*/
+
 
             Thread.sleep(100);
 
