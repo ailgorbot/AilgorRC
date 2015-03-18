@@ -1,5 +1,6 @@
 package fr.ailgor.ailgorrc;
 
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,18 +54,20 @@ public class MainActivity extends IOIOActivity {
 
     class Looper extends BaseIOIOLooper{
 
-// Declare PIN
+        // Declare PIN
         private DigitalOutput PinDO0; // LED STAT
 
-       // Motor DC : Right
-        private DigitalOutput PinDO6; // L293D
-        private DigitalOutput PinDO7; // L293D
-        private PwmOutput PinPW37; // L293D
+        // Motor DC : Right
+        private DigitalOutput PinDIO36; // L293D In 1
+        private DigitalOutput PinDIO37; // L293D In 2
+        private PwmOutput PinPWM38; // L293D Enable 1
 
         // Motor DC : Left
-        private DigitalOutput PinDO11; // L293D
-        private DigitalOutput PinDO12; // L293D
-        private PwmOutput PinPW38; // L293D
+        private DigitalOutput PinDIO40; // L293D In 3
+        private DigitalOutput PinDIO41; // L293D In 4
+        private PwmOutput PinPWM39; // L293D Enable 2
+
+
 
         @Override
         protected void setup() throws ConnectionLostException, InterruptedException {
@@ -73,16 +76,16 @@ public class MainActivity extends IOIOActivity {
             // LED STAT
             PinDO0 = ioio_.openDigitalOutput(0, true);
 
-           // Motor DC : Right
-            PinDO6 = ioio_.openDigitalOutput(0);
-            PinDO7 = ioio_.openDigitalOutput(0);
-            PinPW38 = ioio_.openPwmOutput(38,100);
+            // Motor DC : Right
+            PinDIO36 = ioio_.openDigitalOutput(36);
+            PinDIO37 = ioio_.openDigitalOutput(37);
+            PinPWM38 = ioio_.openPwmOutput(38,100);
 
 
             // Motor DC : Left
-            PinDO11 = ioio_.openDigitalOutput(0);
-            PinDO12 = ioio_.openDigitalOutput(0);
-            PinPW37 = ioio_.openPwmOutput(37,100);
+            PinDIO40 = ioio_.openDigitalOutput(40);
+            PinDIO41 = ioio_.openDigitalOutput(41);
+            PinPWM39 = ioio_.openPwmOutput(39,100);
 
 
             enableUi(true); // Start IOIO
@@ -93,15 +96,24 @@ public class MainActivity extends IOIOActivity {
 //            super.loop();
 
 
-         PinDO0.write(!toggleButtonLedSTAT.isChecked());
+            PinDO0.write(!toggleButtonLedSTAT.isChecked());
 
-         PinDO6.write(false);
-         PinDO7.write(true);
-         PinDO11.write(true);
-         PinDO12.write(false);
+            PinPWM39.setDutyCycle(1);
+            PinDIO41.write(!toggleButtonLedSTAT.isChecked());
+            PinDIO40.write(toggleButtonLedSTAT.isChecked());
+
+            PinPWM38.setDutyCycle(1);
+            PinDIO37.write(!toggleButtonLedSTAT.isChecked());
+            PinDIO36.write(toggleButtonLedSTAT.isChecked());
 
 
-            Thread.sleep(100);
+
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
 
         } // End Loop
 
