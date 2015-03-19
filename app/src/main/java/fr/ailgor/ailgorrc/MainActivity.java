@@ -53,7 +53,7 @@ public class MainActivity extends IOIOActivity {
                     speed = (float)0.5;
                 }
                 else
-                speed = 0;
+                    speed = 0;
 
 
                 return false;
