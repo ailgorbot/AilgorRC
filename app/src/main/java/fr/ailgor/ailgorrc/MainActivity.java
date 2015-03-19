@@ -43,7 +43,7 @@ public class MainActivity extends IOIOActivity {
 
         enableUi(false);
 
-        buttonLeft.setOnTouchListener(new View.OnTouchListener() {
+        buttonRight.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if ((event.getAction() == MotionEvent.ACTION_MOVE)||(event.getActionMasked()!=MotionEvent.ACTION_UP))
@@ -60,7 +60,7 @@ public class MainActivity extends IOIOActivity {
             }
         });
 
-        buttonRight.setOnTouchListener(new View.OnTouchListener() {
+        buttonLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if ((event.getAction() == MotionEvent.ACTION_MOVE)||(event.getActionMasked()!=MotionEvent.ACTION_UP))
